@@ -9,5 +9,8 @@ package estructurasDeSeleccion;
  * @author guerig
  */
 public class Calculadora {
+    String opcion;
     
+    public static void main(String[] args) {
+    }
 }
