@@ -119,9 +119,9 @@ public class Ejercicio3B {
         unidadesAProducir = BENEFICIO_TOTAL / (pUnitario - cProduccion);
         
         String resultadoFinal = """
-                                ---------------------------------------
-                                            Resultado final
-                                ---------------------------------------
+                                -------------------------------------------------------
+                                                    Resultado final
+                                -------------------------------------------------------
                                 
                                 El coste de la producción es: %.2f €
                                 El precio de venta unitario es: %.2f €
