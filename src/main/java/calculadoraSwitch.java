@@ -72,27 +72,33 @@ public class calculadoraSwitch {
         }
         
         // v3
-        
         /*
         Lógica de la aplicación
         Si es opción 1 --> sumar
-        */
-        if(opcion.equals("1")){
-            resultado = operando1 + operando2;
-            // // Si se usa el printf las concatenaciones tienen que ser con comas ","
-            System.out.printf("El resultado es %.2f", resultado);
-        }else if (opcion.equals("2")){
-            resultado = operando1 - operando2;
-            // // Si se usa el printf las concatenaciones tienen que ser con comas ","
-            System.out.printf("El resultado es %.2f", resultado);
-        }else if(opcion.equals("3")){
-            resultado = operando1 * operando2;
-            // // Si se usa el printf las concatenaciones tienen que ser con comas ","
-            System.out.printf("El resultado es %.2f", resultado);
-        }else if(opcion.equals("4")){
-            resultado = operando1 / operando2;
-            // // Si se usa el printf las concatenaciones tienen que ser con comas ","
-            System.out.printf("El resultado es %.2f", resultado);
+         */
+        switch (opcion) {
+            case "1":
+                resultado = operando1 + operando2;
+                // // Si se usa el printf las concatenaciones tienen que ser con comas ","
+                System.out.printf("El resultado es %.2f", resultado);
+                break;
+            case "2":
+                resultado = operando1 - operando2;
+                // // Si se usa el printf las concatenaciones tienen que ser con comas ","
+                System.out.printf("El resultado es %.2f", resultado);
+                break;
+            case "3":
+                resultado = operando1 * operando2;
+                // // Si se usa el printf las concatenaciones tienen que ser con comas ","
+                System.out.printf("El resultado es %.2f", resultado);
+                break;
+            case "4":
+                resultado = operando1 / operando2;
+                // // Si se usa el printf las concatenaciones tienen que ser con comas ","
+                System.out.printf("El resultado es %.2f", resultado);
+                break;
+            default:
+                break;
         }
         
     }
