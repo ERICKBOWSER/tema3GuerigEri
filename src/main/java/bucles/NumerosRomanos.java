@@ -22,7 +22,6 @@ public class NumerosRomanos {
         
         */
         int numero = 0, dato;
-        String nombre, letras = "aeiou";
         
         Scanner teclado = new Scanner(System.in);
         String texto = """
@@ -83,12 +82,25 @@ public class NumerosRomanos {
                         break;
                 }
             }else if(numero == 2){
+                String vocales = "aeiou";
+                
+                // Si se ha usado el Scanner para leer numeros, hay que limpiarlo para meter texto
+                teclado.nextLine(); //Limpiar el buffer
                 System.out.println("Escribe un nombre: ");
-                nombre = teclado.nextLine();
-                do{
-                    
-                    
-                }while(nombre.length(letras));
+                String nombre = teclado.nextLine();
+                
+                int contador = 0;              
+                for(int i = 0; i <= vocales.length(); i++){
+                   System.out.println(vocales.length());
+                   char resultado = nombre.charAt(i);
+                   if(resultado == 'a'){
+                       contador++;
+                   }
+                   
+                }
+                System.out.println(contador);
+            }else{
+                System.out.println("Fin del programa");
             }
         }while(numero != 3);
         
