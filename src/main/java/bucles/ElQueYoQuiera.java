@@ -23,7 +23,7 @@ public class ElQueYoQuiera {
         System.out.println((F0 + F1));
         
         for(int i = 0; i <= 35; i++){
-            fn = f2 - 1 + f2 + 2;
+            fn = f2 - 1 + f2 - 2;
             f2 = fn;
             System.out.println(fn);
             

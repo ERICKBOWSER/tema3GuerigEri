@@ -41,15 +41,17 @@ public class Ejercicio3E {
         // Precios
         final double PRECIO_MINIMO = 0.1, PRECIO_MAXIMO = 1;
         
-        
+        // Variable para terminar el programa
         String salir = "";
         
+        // Menu principal
         String texto = """
                        Elige una opción:
                        1. Realizar los calculos
                        2. Terminar
                        """;
         
+        // String para almacenar los codigos del producto
         String codigo = """
                        ---------------------------------------
                              Fábrica de dulces navideños
@@ -62,6 +64,7 @@ public class Ejercicio3E {
                         M2 Mazapanes
                         """;
         
+        // String para almacenar el código en caso de error
         String reintentarCodigo = """
                                     ¡CÓDIGO ERRONEO!
                                   
@@ -75,65 +78,56 @@ public class Ejercicio3E {
                                   Si quieres cerrar el programa
                                   escribre "salir".
                                   """;
-        
-        String opcion = "";
-        int resultado;
+        // Variable para almacenar el resultado del código inroducido
+        String resultado = "";
                        
         do{
-            opcion = JOptionPane.showInputDialog(texto);
-            resultado = Integer.parseInt(opcion);
+            // Almacenamos el código del producto
+            resultado = JOptionPane.showInputDialog(texto);
             
             switch(resultado){
-                case 1:
+                case "1":
                     // Almacena el código enviado
                     String codigoRespuesta = "";
                     
                     // Introducir código
-                    codigoRespuesta = JOptionPane.showInputDialog(codigo);
-                    codigoRespuesta = codigoRespuesta.toUpperCase();
+                    //codigoRespuesta = JOptionPane.showInputDialog(codigo);
+                    //codigoRespuesta = codigoRespuesta.toUpperCase();
                     
                     do{
-                        // En caso de que el código sea erroneo
+                        // En caso de que el código sea erroneo                       
                         codigoRespuesta = JOptionPane.showInputDialog(reintentarCodigo);
                         codigoRespuesta = codigoRespuesta.toUpperCase();
                         
-                        switch(codigoRespuesta){
-                            case "M1", "T1":
-                                mPrima = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio: "));
-            
-                                // Se ejecuta si el precio esta dentro de los limites
-                                while(mPrima <= PRECIO_MINIMO || mPrima >= PRECIO_MAXIMO){
+                        
+                        // Calculamos el precio de la materia prima 
+                        mPrima = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio de la materia prima: "));
 
-                                    mPrima = Double.parseDouble(JOptionPane.showInputDialog("El precio introducido no es valido, vuelve a introducirlo:  "));
+                        // Se ejecuta si el precio esta dentro de los limites
+                        while(mPrima <= PRECIO_MINIMO || mPrima >= PRECIO_MAXIMO){
 
-                                }
-                                
-                                // Calculamos el coste de producción sumando la materia prima y la mano de obra
-                                cProduccion = mPrima + M1_T1;                                
-                                
-                                break;
-                                
-                            case "M2", "T2", "P1":
-                                
-                                mPrima = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio: "));
-            
-                                // Se ejecuta si el precio esta dentro de los limites
-                                while(mPrima <= PRECIO_MINIMO || mPrima >= PRECIO_MAXIMO){
+                            mPrima = Double.parseDouble(JOptionPane.showInputDialog("El precio introducido no es valido, vuelva a introducirlo:  "));
 
-                                    mPrima = Double.parseDouble(JOptionPane.showInputDialog("El precio introducido no es valido, vuelve a introducirlo:  "));
-
-                                }
-                                
-                                cProduccion = mPrima + M2_T2_P1;
                         }
+                        
+                        // Calculamos el coste por mano de obra
+                        Double manoObra = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio de la mano de obra: "));
+                        
+                        while(mPrima <= PRECIO_MINIMO || mPrima >= PRECIO_MAXIMO){
+                            manoObra = Double.parseDouble(JOptionPane.showInputDialog("El precio introducido es erroneo, vuelva a introducirlo: "));
+                        }
+
+                        // Calculamos el coste de producción sumando la materia prima y la mano de obra
+                        cProduccion = mPrima + M1_T1;                                
+                               
 
                         JOptionPane.showMessageDialog(null, codigoRespuesta);
 
 
-                    }while(!codigoRespuesta.equals("M1") ||
-                            !codigoRespuesta.equals("P1") ||
-                            !codigoRespuesta.equals("T1") ||
-                            !codigoRespuesta.equals("T2") ||
+                    }while(!(codigoRespuesta.equals("M1")) &&
+                            !codigoRespuesta.equals("P1") &&
+                            !codigoRespuesta.equals("T1") &&
+                            !codigoRespuesta.equals("T2") &&
                             !codigoRespuesta.equals("M2"));
                     
                     // Calcular el precio de venta unitario
@@ -167,7 +161,7 @@ public class Ejercicio3E {
                     JOptionPane.showMessageDialog(null, resultadoFinal);
 
                     break;
-                case 2:
+                case "2":
                     // Almacena el texto para terminar el programa 
                     
                     
@@ -188,7 +182,7 @@ public class Ejercicio3E {
                     System.out.println(resultado);
                 break;
             }            
-        }while(resultado > 3);
+        }while(!(salir.equalsIgnoreCase("salir")) || resultado.equalsIgnoreCase("salir"));
         
         System.out.println("¡FINITE INCANTATEM!");
         
