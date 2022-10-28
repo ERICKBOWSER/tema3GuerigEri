@@ -29,9 +29,6 @@ public class Ejercicio3E {
         // Almacenamos los nombres de los datos 
         double cProduccion = 0, mPrima = 0, pUnitario = 0, unidadesAProducir = 0;
         
-        // Coste de mano de obra
-        final double M1_T1 = 0.15, M2_T2_P1 = 0.22;
-        
         // Porcentajes
         final double PORCENTAJES_M1_M2_P1 = 0.5, PORCENTAJES_T1_T2 = 0.65;
         
@@ -52,23 +49,12 @@ public class Ejercicio3E {
                        """;
         
         // String para almacenar los codigos del producto
-        String codigo = """
-                       ---------------------------------------
-                             Fábrica de dulces navideños
-                       ---------------------------------------
-                       Selecciona uno:
-                        M1 Mantecados de Limón
-                        P1 Polvorones
-                        T1 Turrón de chocolate
-                        T2 Turrón clásico
-                        M2 Mazapanes
-                        """;
-        
-        // String para almacenar el código en caso de error
         String reintentarCodigo = """
-                                    ¡CÓDIGO ERRONEO!
+                                   -----------------------------------------------------
+                                                Fábrica de dulces navideños
+                                   -----------------------------------------------------
                                   
-                                  Vuelve a introducirlo: 
+                                   Selecciona uno: 
                                     M1 Mantecados de Limón
                                     P1 Polvorones
                                     T1 Turrón de chocolate
@@ -80,6 +66,9 @@ public class Ejercicio3E {
                                   """;
         // Variable para almacenar el resultado del código inroducido
         String resultado = "";
+        
+        // Almacena el código enviado
+        String codigoRespuesta = "";
                        
         do{
             // Almacenamos el código del producto
@@ -87,48 +76,45 @@ public class Ejercicio3E {
             
             switch(resultado){
                 case "1":
-                    // Almacena el código enviado
-                    String codigoRespuesta = "";
-                    
-                    // Introducir código
-                    //codigoRespuesta = JOptionPane.showInputDialog(codigo);
-                    //codigoRespuesta = codigoRespuesta.toUpperCase();
                     
                     do{
                         // En caso de que el código sea erroneo                       
                         codigoRespuesta = JOptionPane.showInputDialog(reintentarCodigo);
                         codigoRespuesta = codigoRespuesta.toUpperCase();
+
+                    // 
+                    }while(!(codigoRespuesta.equals("M1") ||
+                            codigoRespuesta.equals("P1") ||
+                            codigoRespuesta.equals("T1") ||
+                            codigoRespuesta.equals("T2") ||
+                            codigoRespuesta.equals("M2") ||
+                            codigoRespuesta.equalsIgnoreCase("SALIR"))
+                            );
+                    
+                    // Condicional para que no se ejecute el código en caso de que el codigoRespuesta sea salir
+                    if(!codigoRespuesta.equals("SALIR")){
                         
-                        
-                        // Calculamos el precio de la materia prima 
-                        mPrima = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio de la materia prima: "));
+                    // Calculamos el precio de la materia prima 
+                    mPrima = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio de la materia prima (0.1 - 1): "));
 
-                        // Se ejecuta si el precio esta dentro de los limites
-                        while(mPrima <= PRECIO_MINIMO || mPrima >= PRECIO_MAXIMO){
+                    // Se ejecuta si el precio esta dentro de los limites
+                    while(mPrima < PRECIO_MINIMO || mPrima > PRECIO_MAXIMO){
 
-                            mPrima = Double.parseDouble(JOptionPane.showInputDialog("El precio introducido no es valido, vuelva a introducirlo:  "));
+                        mPrima = Double.parseDouble(JOptionPane.showInputDialog("El precio introducido no es valido, vuelva a introducirlo (0.1 - 1):  "));
 
-                        }
-                        
-                        // Calculamos el coste por mano de obra
-                        Double manoObra = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio de la mano de obra: "));
-                        
-                        while(mPrima <= PRECIO_MINIMO || mPrima >= PRECIO_MAXIMO){
-                            manoObra = Double.parseDouble(JOptionPane.showInputDialog("El precio introducido es erroneo, vuelva a introducirlo: "));
-                        }
+                    }
 
-                        // Calculamos el coste de producción sumando la materia prima y la mano de obra
-                        cProduccion = mPrima + M1_T1;                                
-                               
+                    // Calculamos el coste por mano de obra
+                    final double MIN_MANO_OBRA =0.5,MAX_MANO_OBRA = 0.9;
 
-                        JOptionPane.showMessageDialog(null, codigoRespuesta);
+                    Double manoObra = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio de la mano de obra (0.5 - 0.9): "));
 
+                    while(manoObra < MIN_MANO_OBRA || manoObra > MAX_MANO_OBRA){
+                        manoObra = Double.parseDouble(JOptionPane.showInputDialog("El precio introducido es erroneo, vuelva a introducirlo (0.5 - 0.9): "));
+                    }
 
-                    }while(!(codigoRespuesta.equals("M1")) &&
-                            !codigoRespuesta.equals("P1") &&
-                            !codigoRespuesta.equals("T1") &&
-                            !codigoRespuesta.equals("T2") &&
-                            !codigoRespuesta.equals("M2"));
+                    // Calculamos el coste de producción sumando la materia prima y la mano de obra
+                    cProduccion = mPrima + manoObra;                    
                     
                     // Calcular el precio de venta unitario
                     if(codigoRespuesta.equals("M1")||
@@ -159,78 +145,23 @@ public class Ejercicio3E {
                                             """.formatted(cProduccion, pUnitario, (int)Math.ceil(unidadesAProducir));
 
                     JOptionPane.showMessageDialog(null, resultadoFinal);
-
+                    }
                     break;
                 case "2":
-                    // Almacena el texto para terminar el programa 
-                    
-                    
-                    // Salir del programa
-                    //salir = JOptionPane.showInputDialog("Si quieres finalizar el programa escribe 'Salir': ");
-                    //salir = salir.toLowerCase();
-
                     do{
+                        // Variable para almacenar el String para terminar el programa
                         salir = JOptionPane.showInputDialog("Si quieres finalizar el programa escribe 'Salir': ");
                         salir = salir.toLowerCase();
 
-                        JOptionPane.showMessageDialog(null, salir);
                     }while(!salir.equals("salir"));    
 
                     // Mensaje de finalización del programa
                     JOptionPane.showMessageDialog(null, "El programa ha finalizado");
-                    
-                    System.out.println(resultado);
                 break;
             }            
-        }while(!(salir.equalsIgnoreCase("salir")) || resultado.equalsIgnoreCase("salir"));
+        }while(!(salir.equalsIgnoreCase("salir")) || resultado.equalsIgnoreCase("salir") || codigoRespuesta.equalsIgnoreCase("SALIR"));
         
         System.out.println("¡FINITE INCANTATEM!");
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+            
     }
 }
