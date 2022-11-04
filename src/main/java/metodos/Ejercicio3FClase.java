@@ -68,7 +68,7 @@ public class Ejercicio3FClase {
     public static String pedirCodigoProducto(){
         String codigo;
         do{
-            codigo = MostrarMenuCodigos();
+            codigo = mostrarMenuCodigos();
         }while(!esCodigoProductoValido(codigo));
         
         return codigo;
@@ -93,6 +93,7 @@ public class Ejercicio3FClase {
                        T2 Turrón clásico
                        M2 Mazapanes                       
                        """;
+        String opcion = JOptionPane.showInputDialog(texto);
         return texto;
     }
     
