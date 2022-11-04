@@ -50,6 +50,11 @@ public class Ejercicio3F {
                 codigos = pedirCodigos();
                 System.out.println("dato de la variable codigos: " + codigos);
                 
+                // Si el código que se pasa es salir termina el programa
+                if(codigos.equalsIgnoreCase("salir")){
+                    break;
+                }
+                
                 codigoFiltrado = filtrarCodigos(codigos);
                 System.out.println(codigoFiltrado);
                 
@@ -143,7 +148,7 @@ public class Ejercicio3F {
         final double PRECIO_MINIMO = 0.1, PRECIO_MAXIMO = 1;
         
         // Almacena el valor de la materia prima
-        double mPrima;
+        double mPrima = 8;
         
         do{
             try{
@@ -152,8 +157,11 @@ public class Ejercicio3F {
                 
                 /*
                 IMPORTANTE: el showMessageDialog no se puede usar si se esta intentando almacenar su valor en una variable
+                
+                IMPORTANTE: el showConfirmDialog devuelve un 0 o 1
+                
                 */
-                mPrima = JOptionPane.showConfirmDialog(null, "El precio introducido no es valido, vuelva a introducirlo (0.1 - 1): ");
+                JOptionPane.showMessageDialog(null, "El precio introducido no es valido, vuelva a introducirlo (0.1 - 1): ");
 
             }    
 
@@ -167,13 +175,13 @@ public class Ejercicio3F {
         final double MIN_MANO_OBRA =0.5,MAX_MANO_OBRA = 0.9;
         
         // Almacena el valor de la mano de obra
-        double manoObra;
+        double manoObra = 8;
         do{
             try{
                 manoObra = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio de la mano de obra (0.5 - 0.9)"));
             } catch(NumberFormatException nfe){
 
-                manoObra = JOptionPane.showConfirmDialog(null, "El precio introducido es erroneo, vuelva a introducirlo (0.5 - 0.9)");
+                JOptionPane.showMessageDialog(null, "El precio introducido es erroneo, vuelva a introducirlo (0.5 - 0.9)");
 
             }    
 
