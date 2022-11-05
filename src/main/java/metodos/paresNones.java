@@ -19,6 +19,7 @@ public class paresNones {
     */
     public static void main(String[] args) {
         String opcion, paresNones;
+        int dedos;
         
         do{
         
@@ -27,14 +28,14 @@ public class paresNones {
             if(!opcion.equalsIgnoreCase("salir")){
                 
                 // ELEGIR "PARES" / "NONES"
-                paresNones = comprobarSiJuega();
+                paresNones = comprobarEleccion();
                 
                 if(paresNones.equals("salir")){
                     break;
                 }
                 
                 // ELEGIR Nº DE DEDOS
-                
+                dedos = numeroDedos();
 
             } else{
                 opcion = "salir";
@@ -62,10 +63,13 @@ public class paresNones {
         return opcion;
     }
     
+    //  Filtra los datos que son permitidos en el ménu principal
     public static boolean filtrarSiJuega(String opcion){
         return (opcion.equalsIgnoreCase("jugar")|| opcion.equalsIgnoreCase("salir"));
     }
     
+    /*  Este método se repite hasta que se introduzca un dato dentro de los valores permitidos en el método 
+        filtrarSiJuega */
     public static String comprobarSiJuega(){
         String elegirOpcion= "";
         
@@ -85,16 +89,23 @@ public class paresNones {
                                 Nones                            
                             """;
                 
-        return opcion = JOptionPane.showInputDialog(paresNones);
+        opcion = JOptionPane.showInputDialog(paresNones);
+
+        System.out.println(opcion);
+
+        return opcion;
         
     }
     
+    //  Filtra los datos que son permitidos en el ménu de selección
     public static boolean filtrarParesNones(String paresNones){
         return(paresNones.equalsIgnoreCase("pares") ||
                 paresNones.equalsIgnoreCase("nones") ||
                 paresNones.equalsIgnoreCase("salir"));
     }
     
+    /*  El método se repite hasta que se introduzca un dato dentro de los valores permitidos en
+        método filtrarParesNones*/
     public static String comprobarEleccion(){
         String eleccionParesNones = "";
         
@@ -105,15 +116,94 @@ public class paresNones {
         return eleccionParesNones;
     }
     
+    // ELEGIR EL NÚMERO DE DEDOS
     public static int numeroDedos(){
         int dedos = 0;
         
         do{
-            dedos = Integer.parseInt(JOptionPane.showInputDialog("Introduce el número de dedos"));          
+            try{
+                dedos = Integer.parseInt(JOptionPane.showInputDialog("Introduce el número de dedos"));          
+            }catch(NumberFormatException nfe){
+                JOptionPane.showMessageDialog(null, "El número de dedos introducido es incorrecto");
+            }
+
+            System.out.println(dedos);
             
-        }while(dedos <= 10);     
+        }while(dedos <= 0 || dedos > 10);     
         
         return dedos;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 }
