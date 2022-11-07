@@ -4,6 +4,7 @@
  */
 package metodos;
 
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,7 +20,9 @@ public class paresNones {
     */
     public static void main(String[] args) {
         String opcion, paresNones;
-        int dedos;
+        int dedos, numeroAleatorio;
+        
+        Random generador = new Random();
         
         do{
         
@@ -36,7 +39,10 @@ public class paresNones {
                 
                 // ELEGIR Nº DE DEDOS
                 dedos = numeroDedos();
-
+                
+                // GENERAR NÚMERO ALEATORIO
+                numeroAleatorio = numeroAleatorio(generador);
+                
             } else{
                 opcion = "salir";
             }
@@ -124,7 +130,7 @@ public class paresNones {
             try{
                 dedos = Integer.parseInt(JOptionPane.showInputDialog("Introduce el número de dedos"));          
             }catch(NumberFormatException nfe){
-                JOptionPane.showMessageDialog(null, "El número de dedos introducido es incorrecto");
+                JOptionPane.showMessageDialog(null, "El tipo de dato introducido es incorrecto, vuelve a escribirlo.");
             }
 
             System.out.println(dedos);
@@ -132,6 +138,17 @@ public class paresNones {
         }while(dedos <= 0 || dedos > 10);     
         
         return dedos;
+    }
+    
+    // GENERAR NÚMERO ALEATORIO
+    
+    public static Random numeroAleatorio(Random generador){
+        return generador;
+    }
+    
+    // COMPARAR DATOS
+    public static int compararDedos(int numeroAleatorio, int numeroDedos){
+   
     }
 
 
