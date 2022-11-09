@@ -19,10 +19,10 @@ public class paresNones {
     4.  ¿Ganador?    
     */
     public static void main(String[] args) {
-        String opcion, paresNones;
+        String opcion, paresNones, resultadoParesNones, volverJugar;
         int dedos, numeroAleatorio;
         
-        Random generador = new Random();
+        
         
         do{
         
@@ -41,7 +41,21 @@ public class paresNones {
                 dedos = numeroDedos();
                 
                 // GENERAR NÚMERO ALEATORIO
-                numeroAleatorio = numeroAleatorio(generador);
+                numeroAleatorio = numeroAleatorio();
+                
+                // RESULTADO PARES/IMPARES
+                resultadoParesNones = resultadoParesNones(numeroAleatorio, dedos);
+                
+                if(resultadoParesNones == paresNones){
+                    JOptionPane.showMessageDialog(null, "El ganador es el jugador");
+                }else{
+                    JOptionPane.showMessageDialog(null, "El ganador es la máquina");
+                }
+                
+                // VOLVER A JUGAR
+                volverJugar = volverJugar();
+                
+                
                 
             } else{
                 opcion = "salir";
@@ -96,6 +110,7 @@ public class paresNones {
                             """;
                 
         opcion = JOptionPane.showInputDialog(paresNones);
+        opcion = opcion.toLowerCase();
 
         System.out.println(opcion);
 
@@ -133,32 +148,79 @@ public class paresNones {
                 JOptionPane.showMessageDialog(null, "El tipo de dato introducido es incorrecto, vuelve a escribirlo.");
             }
 
-            System.out.println(dedos);
+            System.out.println("Usuario: " + dedos);
             
-        }while(dedos <= 0 || dedos > 10);     
+        }while(dedos < 1 || dedos > 10);     
         
         return dedos;
     }
     
     // GENERAR NÚMERO ALEATORIO
     
-    public static Random numeroAleatorio(Random generador){
-        return generador;
+    public static int numeroAleatorio(){
+        int numeroAleatorio = 0;
+        
+        Random generador = new Random();
+        
+        numeroAleatorio = generador.nextInt(1, 11);
+        
+        System.out.println("Máquina: " + numeroAleatorio);
+        
+        return numeroAleatorio;
     }
     
     // COMPARAR DATOS
-    public static int compararDedos(int numeroAleatorio, int numeroDedos){
-   
+    public static String resultadoParesNones(int numeroAleatorio, int numeroDedos){
+            int resultado = 0;
+            String resultadoParesNones = "";
+            
+            resultado = numeroAleatorio + numeroDedos;
+            
+            System.out.println(resultado);
+            
+            if(resultado % 2 == 0){
+                resultadoParesNones = "pares";
+                
+                System.out.println(resultadoParesNones);
+                
+                return resultadoParesNones;
+                
+            }else{
+                resultadoParesNones = "nones";
+                
+                System.out.println(resultadoParesNones);
+                
+                return resultadoParesNones;
+            }
+    
+            
     }
 
+    // VOLVER A JUGAR
+    public static String volverJugar(){
+        String volverJugar= "";
+        
+        String texto = """
+                            ¿Desea volver a jugar?
+                                    Sí o No                       
+                       """;
+        
+        volverJugar = JOptionPane.showInputDialog(texto);
+        System.out.println(volverJugar);
+        
+        return volverJugar;
+    }
+    
+    public static boolean filtrarVolver(String volverJugar){
+        return (volverJugar.equalsIgnoreCase("si")||
+                volverJugar.equalsIgnoreCase("sí")||
+                volverJugar.equalsIgnoreCase("no"));
+    }
 
-
-
-
-
-
-
-
+    
+    public static boolean deseaVolverJugar(){
+        return 
+    }
 
 
 

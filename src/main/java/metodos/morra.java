@@ -31,21 +31,46 @@ public class morra {
         */
         String preguntarJugar;
         boolean filtrarJugar;
-        int dedosMaquina = 0, sumarDedos, dedos;
+        int dedosMaquina = 0, sumarDedos, dedos, resultadoSumaUsuario, resultadoSumaMaquina, resultadoRonda, contadorUsuario = 0, contadorMaquina = 0, puntuacionTotal;
         
         do{
             // JUGAR
             preguntarJugar = preguntarJugar();
 
             if(!preguntarJugar.equalsIgnoreCase("salir")){
-                // PEDIR DEDOS
+                // DEDOS USUARIO
                 dedos = comprobarNumDedos();
                 
                 // DEDOS MÁQUINA
                 dedosMaquina = dedosMaquina();
 
-                // SUMAR DEDOS
+                // SUMAR DEDOS USUARIO Y MÁQUINA
                 sumarDedos = sumarDedos(dedos, dedosMaquina);
+                
+                // RESULTADO DE LA SUMA USUARIO
+                resultadoSumaUsuario = comprobarDedosUsuario(dedos);
+                
+                // RESULTADO DE LA SUMA MAQUINA
+                resultadoSumaMaquina = resultadoDedosMaquina();
+                
+                // RESULTADO RONDA
+                resultadoRonda = resultadoRonda(resultadoSumaUsuario, resultadoSumaMaquina, sumarDedos);
+                
+                if(resultadoRonda == 1){
+                    JOptionPane.showMessageDialog(null, "El ganador es el usuario");
+                    
+                    contadorUsuario++;
+                }else if(resultadoRonda == 2){
+                    JOptionPane.showMessageDialog(null, "El ganador es la máquina");
+                    
+                    contadorMaquina++;
+                }else{
+                    JOptionPane.showMessageDialog(null, "¡No hay ganador!");
+                }
+                
+                // PUNTUACIÓN TOTAL 
+                puntuacionTotal = contadorUsuario + contadorMaquina;
+                    JOptionPane.showMessageDialog(null, "La puntuación total es: " + puntuacionTotal);
         
             }else{
                 preguntarJugar = "salir";
@@ -143,26 +168,9 @@ public class morra {
         return maquinaDedos;
     }
     
-    // SUMA JUGADOR
-    public static int resultadoSumaDedos(){
-        int dedos = 0;
-        
-        do{
-            try{
-                dedos = Integer.parseInt(JOptionPane.showInputDialog("Cuanto crees que será la suma de todos los dedos"));          
-            }catch(NumberFormatException nfe){
-                JOptionPane.showMessageDialog(null, "El tipo de dato introducido es incorrecto, vuelve a escribirlo.");
-            }
-
-            System.out.println("Suma usuario: " + dedos);
-            
-        }while(dedos <= 1 || dedos > 10);     
-        
-        return dedos;
-    }
-    
     // DEDOS MÁQUINA
-    public static int sumaDedosMaquina(){
+    /*
+    public static int sumarDedosMaquina(){
         int maquinaDedos;
         Random generador = new Random();
         
@@ -171,8 +179,9 @@ public class morra {
         System.out.println("Maquina suma: " + maquinaDedos);
         
         return maquinaDedos;
-    }
+    }*/
     
+    // SUMAR DEDOS DEL USUARIO Y LA MÁQUINA
     public static int sumarDedos(int dedos, int dedosMaquina){
         int sumaTotal = 0;
         
@@ -181,8 +190,54 @@ public class morra {
         return sumaTotal;
     }
     
+    // SUMA DEDOS USUARIO 
+    public static int resultadoDedosUsuario(){
+        int dedos = 0;
+        
+        
+        String totalDedos = "Escribe la suma de todos los dedos";
+        
+        dedos = Integer.parseInt(JOptionPane.showInputDialog(totalDedos));
+                
+        return dedos;
+    }
+    
+    // COMPROBAR SI EL NÚMERO DE DEDOS DEL USUARIO CUMPLE LOS REQUISITOS
+    public static int comprobarDedosUsuario(int dedos){
+        int resultado = 0;
+        do{
+            resultado = resultadoDedosUsuario();
+            
+        }while(resultado < dedos + 1);  
+        
+        System.out.println("Resultado dedos del usuario: " + resultado);
+        return resultado;
+    }
+    
+    // RESULTADO  DE LOS DEDOS DE LA MÁQUINA
+    public static int resultadoDedosMaquina(){
+        int maquinaDedos;
+        Random generador = new Random();
+        
+        maquinaDedos = generador.nextInt(1, 10); // Puede que haya 
+        
+        System.out.println("Resultado dedos de la máquina: " + maquinaDedos);
+        
+        return maquinaDedos;
+    }
     
     
+    //
+    public static int resultadoRonda(int resultadoSumaUsuario, int resultadoSumaMaquina, int sumarDedos){
+        int resultado = 0;
+        if(resultadoSumaUsuario == sumarDedos){
+            resultado = 1;
+        }else if (resultadoSumaMaquina == sumarDedos){
+            resultado = 2;
+        }
+        
+        return resultado;        
+    }
     
     
     
