@@ -19,8 +19,8 @@ public class paresNones {
     4.  ¿Ganador?    
     */
     public static void main(String[] args) {
-        String opcion, paresNones, resultadoParesNones, volverJugar;
-        int dedos, numeroAleatorio;
+        String opcion, paresNones;
+        int dedos, numeroAleatorio, resultadoParesNones;
         
         
         
@@ -43,18 +43,17 @@ public class paresNones {
                 // GENERAR NÚMERO ALEATORIO
                 numeroAleatorio = numeroAleatorio();
                 
-                // RESULTADO PARES/IMPARES
+                // RESULTADO PARES/NONES
                 resultadoParesNones = resultadoParesNones(numeroAleatorio, dedos);
                 
-                if(resultadoParesNones == paresNones){
-                    JOptionPane.showMessageDialog(null, "El ganador es el jugador");
+                if(resultadoParesNones == 2 && paresNones.equalsIgnoreCase("pares")){
+                    JOptionPane.showMessageDialog(null, "¡El ganador es el jugador!");
+                }else if(resultadoParesNones == 1 && paresNones.equalsIgnoreCase("nones")){
+                    JOptionPane.showMessageDialog(null, "¡El ganador es el jugador!");
                 }else{
-                    JOptionPane.showMessageDialog(null, "El ganador es la máquina");
+                    JOptionPane.showMessageDialog(null, "¡El ganador es la máquina!");
+
                 }
-                
-                // VOLVER A JUGAR
-                volverJugar = volverJugar();
-                
                 
                 
             } else{
@@ -170,23 +169,23 @@ public class paresNones {
     }
     
     // COMPARAR DATOS
-    public static String resultadoParesNones(int numeroAleatorio, int numeroDedos){
+    public static int resultadoParesNones(int numeroAleatorio, int numeroDedos){
             int resultado = 0;
-            String resultadoParesNones = "";
+            int resultadoParesNones = 0;
             
             resultado = numeroAleatorio + numeroDedos;
             
             System.out.println(resultado);
             
             if(resultado % 2 == 0){
-                resultadoParesNones = "pares";
+                resultadoParesNones = 2;
                 
                 System.out.println(resultadoParesNones);
                 
                 return resultadoParesNones;
                 
             }else{
-                resultadoParesNones = "nones";
+                resultadoParesNones = 1;
                 
                 System.out.println(resultadoParesNones);
                 
@@ -195,58 +194,6 @@ public class paresNones {
     
             
     }
-
-    // VOLVER A JUGAR
-    public static String volverJugar(){
-        String volverJugar= "";
-        
-        String texto = """
-                            ¿Desea volver a jugar?
-                                    Sí o No                       
-                       """;
-        
-        volverJugar = JOptionPane.showInputDialog(texto);
-        System.out.println(volverJugar);
-        
-        return volverJugar;
-    }
-    
-    public static boolean filtrarVolver(String volverJugar){
-        return (volverJugar.equalsIgnoreCase("si")||
-                volverJugar.equalsIgnoreCase("sí")||
-                volverJugar.equalsIgnoreCase("no"));
-    }
-
-    
-    public static boolean deseaVolverJugar(){
-        return 
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

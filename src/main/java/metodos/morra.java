@@ -25,57 +25,72 @@ public class morra {
 
         El jugador que haya acertado gana. Si ninguno lo ha acertado, se vuelve a empezar.
 
-        Se suele jugar partidos a quién llega antes a los 5 o 21 puntos, manteniendo siempre una ventajas 
-        de 2 victorias sobre el otro jugador: si se da el caso de un empate de 4 a 4, se juega por el punto
-        de ventaja, debiendo conseguir otro punto sucesivamente para ganar el partido.        
+        Se suele jugar partidos a quién llega antes a los 5 o 21 puntos.        
         */
-        String preguntarJugar;
+        String preguntarJugar, puntosGanador;
         boolean filtrarJugar;
-        int dedosMaquina = 0, sumarDedos, dedos, resultadoSumaUsuario, resultadoSumaMaquina, resultadoRonda, contadorUsuario = 0, contadorMaquina = 0, puntuacionTotal;
+        int dedosMaquina = 0, sumarDedos, dedos, resultadoSumaUsuario, resultadoSumaMaquina, resultadoRonda, contadorUsuario = 0, contadorMaquina = 0, puntuacionTotal = 0;
         
         do{
             // JUGAR
             preguntarJugar = preguntarJugar();
+            do{
+                
+                if(!preguntarJugar.equalsIgnoreCase("salir")){
+                    // DEDOS USUARIO
+                    dedos = comprobarNumDedos();
 
-            if(!preguntarJugar.equalsIgnoreCase("salir")){
-                // DEDOS USUARIO
-                dedos = comprobarNumDedos();
-                
-                // DEDOS MÁQUINA
-                dedosMaquina = dedosMaquina();
+                    // DEDOS MÁQUINA
+                    dedosMaquina = dedosMaquina();
 
-                // SUMAR DEDOS USUARIO Y MÁQUINA
-                sumarDedos = sumarDedos(dedos, dedosMaquina);
-                
-                // RESULTADO DE LA SUMA USUARIO
-                resultadoSumaUsuario = comprobarDedosUsuario(dedos);
-                
-                // RESULTADO DE LA SUMA MAQUINA
-                resultadoSumaMaquina = resultadoDedosMaquina();
-                
-                // RESULTADO RONDA
-                resultadoRonda = resultadoRonda(resultadoSumaUsuario, resultadoSumaMaquina, sumarDedos);
-                
-                if(resultadoRonda == 1){
-                    JOptionPane.showMessageDialog(null, "El ganador es el usuario");
+                    // SUMAR DEDOS USUARIO Y MÁQUINA
+                    sumarDedos = sumarDedos(dedos, dedosMaquina);
+
+                    // RESULTADO DE LA SUMA USUARIO
+                    resultadoSumaUsuario = comprobarDedosUsuario(dedos);
+
+                    // RESULTADO DE LA SUMA MAQUINA
+                    resultadoSumaMaquina = comprobarDedosMaquina(dedosMaquina);
+
+                    // RESULTADO RONDA
+                    resultadoRonda = resultadoRonda(resultadoSumaUsuario, resultadoSumaMaquina, sumarDedos);
+
+                    if(resultadoRonda == 1){
+                        JOptionPane.showMessageDialog(null, "El ganador es el usuario");
+
+                        contadorUsuario++;
+                    }else if(resultadoRonda == 2){
+                        JOptionPane.showMessageDialog(null, "El ganador es la máquina");
+
+                        contadorMaquina++;
+                    }else{
+                        JOptionPane.showMessageDialog(null, "¡No hay ganador!");
+                    }
                     
-                    contadorUsuario++;
-                }else if(resultadoRonda == 2){
-                    JOptionPane.showMessageDialog(null, "El ganador es la máquina");
+                    // GANADOR
+                    puntosGanador = puntosGanador(contadorUsuario, contadorMaquina);
+
+                    // PUNTUACIÓN TOTAL 
+                    puntuacionTotal = contadorUsuario + contadorMaquina;
                     
-                    contadorMaquina++;
-                }else{
-                    JOptionPane.showMessageDialog(null, "¡No hay ganador!");
-                }
-                
-                // PUNTUACIÓN TOTAL 
-                puntuacionTotal = contadorUsuario + contadorMaquina;
-                    JOptionPane.showMessageDialog(null, "La puntuación total es: " + puntuacionTotal);
-        
+                    if(puntuacionTotal == 5){
+                    
+                        String puntos = """
+                                                    PUNTUACIONES
+                                        Puntuación jugador: %d
+                                        Puntuación máquina: %d
+
+                                        Puntos: %d       
+
+                                        %s
+                                        """.formatted(contadorUsuario, contadorMaquina, puntuacionTotal, puntosGanador);
+                        JOptionPane.showMessageDialog(null, puntos);
+                    }
+          
             }else{
                 preguntarJugar = "salir";
             }
-            
+            }while(puntuacionTotal < 5);
             
         }while(!preguntarJugar.equalsIgnoreCase("salir"));
             
@@ -87,9 +102,9 @@ public class morra {
         String respuesta = "";
         
         String texto = """
-                       -------------------------------
-                                   Morra
-                       -------------------------------                         
+                       ----------------------------------------------
+                                                Morra
+                       ----------------------------------------------          
                            1. Jugar
                            2. Salir
                        """;
@@ -148,7 +163,12 @@ public class morra {
     public static int comprobarNumDedos(){
         int dedos = 0;
         do{
-            dedos = numeroDedos();
+            try{
+                dedos = numeroDedos();
+            }catch(NumberFormatException nfe){
+                JOptionPane.showMessageDialog(null, "El tipo de dato introducido es incorrecto, vuelve a escribirlo");
+            }    
+             
         }while(!filtrarDedos(dedos));
 
         System.out.println("Dedos: " + dedos);
@@ -167,20 +187,7 @@ public class morra {
         
         return maquinaDedos;
     }
-    
-    // DEDOS MÁQUINA
-    /*
-    public static int sumarDedosMaquina(){
-        int maquinaDedos;
-        Random generador = new Random();
-        
-        maquinaDedos = generador.nextInt(2, 10);
-        
-        System.out.println("Maquina suma: " + maquinaDedos);
-        
-        return maquinaDedos;
-    }*/
-    
+
     // SUMAR DEDOS DEL USUARIO Y LA MÁQUINA
     public static int sumarDedos(int dedos, int dedosMaquina){
         int sumaTotal = 0;
@@ -219,11 +226,20 @@ public class morra {
         int maquinaDedos;
         Random generador = new Random();
         
-        maquinaDedos = generador.nextInt(1, 10); // Puede que haya 
-        
-        System.out.println("Resultado dedos de la máquina: " + maquinaDedos);
+        maquinaDedos = generador.nextInt(1, 10); 
         
         return maquinaDedos;
+    }
+    
+    public static int comprobarDedosMaquina(int dedosMaquina){
+        int resultado = 0;
+        do{
+            resultado = resultadoDedosMaquina();
+            
+        }while(resultado < dedosMaquina + 1);  
+        
+        System.out.println("Resultado dedos del usuario: " + resultado);
+        return resultado;
     }
     
     
@@ -239,6 +255,20 @@ public class morra {
         return resultado;        
     }
     
+    
+    // PUNTOS GANADOR
+    public static String puntosGanador(int contadorUsuario, int contadorMaquina){
+        String resultado = "";
+        
+        if(contadorUsuario > contadorMaquina){
+            resultado = "¡El ganador es el jugador!";
+        }else{
+            resultado = "¡El ganador es la máquina!";
+        }
+        
+        System.out.println(resultado);        
+        return resultado;
+    }
     
     
     
